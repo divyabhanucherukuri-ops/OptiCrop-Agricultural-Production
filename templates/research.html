@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block title %}OptiCrop - Research & Analytics{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-chart-bar me-3"></i>Agricultural Research & Analytics</h1>
+        <p>Explore crop-environment relationships and data-driven insights for sustainable agriculture</p>
+    </div>
+</div>
+
+<section class="py-5">
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <div class="display-4 fw-bold" style="color: #2E7D32;" id="totalSamples">-</div>
+                    <p class="text-muted mb-0">Total Data Samples</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <div class="display-4 fw-bold" style="color: #0288D1;" id="numCrops">-</div>
+                    <p class="text-muted mb-0">Crop Types</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <div class="display-4 fw-bold" style="color: #FF8F00;" id="numFeatures">7</div>
+                    <p class="text-muted mb-0">Features Analyzed</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <div class="display-4 fw-bold" style="color: #A23B72;" id="modelAccuracy">99%</div>
+                    <p class="text-muted mb-0">Model Accuracy</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Charts -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-chart-pie me-2" style="color: #2E7D32;"></i>Crop Distribution</h5>
+                    <canvas id="cropDistributionChart" height="300"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2" style="color: #0288D1;"></i>NPK Requirements by Crop</h5>
+                    <canvas id="npkChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-temperature-high me-2" style="color: #FF8F00;"></i>Temperature & Humidity Requirements</h5>
+                    <canvas id="envChart" height="300"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-tint me-2" style="color: #0277BD;"></i>pH & Rainfall Requirements</h5>
+                    <canvas id="phRainfallChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature Importance -->
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-brain me-2" style="color: #A23B72;"></i>Feature Importance in Model</h5>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Based on Random Forest feature importance analysis. Higher values indicate greater impact on crop prediction.
+                    </div>
+                    <div class="row g-3" id="featureImportance">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Potassium (K)</span>
+                                <strong>High</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 100%;"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Phosphorous (P)</span>
+                                <strong>High</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Nitrogen (N)</span>
+                                <strong>High</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 85%;"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Rainfall</span>
+                                <strong>High</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 80%;"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Temperature</span>
+                                <strong>Medium</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 65%;"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>pH</span>
+                                <strong>Medium</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 55%;"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Humidity</span>
+                                <strong>Medium</strong>
+                            </div>
+                            <div class="confidence-meter"><div class="fill" style="width: 50%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dataset Table Preview -->
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-table me-2" style="color: #2E7D32;"></i>Dataset Sample</h5>
+                    <p class="text-muted">Preview of the crop recommendation dataset (2200 samples, 22 crops)</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="dataPreview">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>N</th><th>P</th><th>K</th>
+                                    <th>Temperature</th><th>Humidity</th>
+                                    <th>pH</th><th>Rainfall</th><th>Crop</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataPreviewBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Fetch research data from API
+fetch('/research_data')
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('totalSamples').textContent = data.total_samples;
+            document.getElementById('numCrops').textContent = data.num_crops;
+            
+            // Crop Distribution Chart
+            new Chart(document.getElementById('cropDistributionChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.crop_names,
+                    datasets: [{
+                        label: 'Samples per Crop',
+                        data: data.crop_counts,
+                        backgroundColor: [
+                            '#2E7D32', '#0288D1', '#FF8F00', '#A23B72', '#44BBA4',
+                            '#E94F37', '#3B1F2B', '#4CAF50', '#039BE5', '#FFB300',
+                            '#8E24AA', '#00ACC1', '#FF7043', '#7CB342', '#C0CA33',
+                            '#26A69A', '#5C6BC0', '#EC407A', '#AB47BC', '#26C6DA',
+                            '#D4E157', '#FFA726'
+                        ],
+                        borderColor: '#1B5E20',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Number of Samples' } }
+                    }
+                }
+            });
+            
+            // NPK Chart
+            new Chart(document.getElementById('npkChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.crop_names,
+                    datasets: [
+                        { label: 'Nitrogen (N)', data: data.crop_names.map(c => data.nutrient_avg.N[c]), backgroundColor: '#2E7D32' },
+                        { label: 'Phosphorous (P)', data: data.crop_names.map(c => data.nutrient_avg.P[c]), backgroundColor: '#A23B72' },
+                        { label: 'Potassium (K)', data: data.crop_names.map(c => data.nutrient_avg.K[c]), backgroundColor: '#FF8F00' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Nutrient Level' } }
+                    }
+                }
+            });
+            
+            // Environmental Chart (Temperature & Humidity)
+            new Chart(document.getElementById('envChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.crop_names,
+                    datasets: [
+                        { label: 'Temperature (°C)', data: data.crop_names.map(c => data.env_avg.temperature[c]), backgroundColor: '#FF8F00', yAxisID: 'y' },
+                        { label: 'Humidity (%)', data: data.crop_names.map(c => data.env_avg.humidity[c]), backgroundColor: '#0288D1', yAxisID: 'y1' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Temperature (°C)' } },
+                        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Humidity (%)' }, grid: { drawOnChartArea: false } }
+                    }
+                }
+            });
+            
+            // pH & Rainfall Chart
+            new Chart(document.getElementById('phRainfallChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.crop_names,
+                    datasets: [
+                        { label: 'pH', data: data.crop_names.map(c => data.env_avg.ph[c]), backgroundColor: '#7CB342', yAxisID: 'y' },
+                        { label: 'Rainfall (mm)', data: data.crop_names.map(c => data.env_avg.rainfall[c]), backgroundColor: '#039BE5', yAxisID: 'y1' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'pH Level' } },
+                        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Rainfall (mm)' }, grid: { drawOnChartArea: false } }
+                    }
+                }
+            });
+            
+            // Data Preview (first 10 rows)
+            const tbody = document.getElementById('dataPreviewBody');
+            // We'll show first 5 crops with sample data
+            const sampleCrops = data.crop_names.slice(0, 5);
+            sampleCrops.forEach(crop => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${data.nutrient_avg.N[crop]}</td>
+                    <td>${data.nutrient_avg.P[crop]}</td>
+                    <td>${data.nutrient_avg.K[crop]}</td>
+                    <td>${data.env_avg.temperature[crop]}</td>
+                    <td>${data.env_avg.humidity[crop]}</td>
+                    <td>${data.env_avg.ph[crop]}</td>
+                    <td>${data.env_avg.rainfall[crop]}</td>
+                    <td><strong>${crop}</strong></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    })
+    .catch(error => console.error('Error:', error));
+</script>
+{% endblock %}

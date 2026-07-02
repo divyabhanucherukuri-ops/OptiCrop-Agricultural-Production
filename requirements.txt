@@ -1,0 +1,9 @@
+Flask
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
+scipy
+pickle-mixin
+nbformat

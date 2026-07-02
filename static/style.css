@@ -1,0 +1,30 @@
+/* Additional custom styles */
+body {
+    background: #f0f4f0;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #2E7D32;
+}
+
+/* Table styles */
+.table-success {
+    background: linear-gradient(135deg, #2E7D32, #388E3C) !important;
+    color: white !important;
+}

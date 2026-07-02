@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% block title %}OptiCrop - Results{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="result-card fade-in">
+                    
+                    <!-- Error Display -->
+                    {% if error %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
+                        <h3 class="mt-3 text-danger">Error</h3>
+                        <p class="text-muted">{{ error }}</p>
+                        <a href="javascript:history.back()" class="btn btn-custom btn-primary-custom mt-3">
+                            <i class="fas fa-arrow-left me-2"></i>Go Back
+                        </a>
+                    </div>
+                    
+                    <!-- SCENARIO 1: Recommendation Result -->
+                    {% elif scenario == 'recommend' %}
+                    <div class="text-center mb-4">
+                        <span class="result-badge green">
+                            <i class="fas fa-seedling me-2"></i>Recommended Crop
+                        </span>
+                        <div class="crop-name-display">
+                            <i class="fas fa-leaf me-2" style="color: #4CAF50;"></i>{{ prediction | capitalize }}
+                        </div>
+                        <p class="text-muted">Based on your soil and environmental parameters</p>
+                    </div>
+                    
+                    <!-- Confidence Meter -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between">
+                            <strong>Prediction Confidence</strong>
+                            <strong style="color: #2E7D32;">{{ confidence }}%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: {{ confidence }}%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Top 3 Recommendations -->
+                    <div class="mb-4">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-trophy me-2" style="color: #FF8F00;"></i>Top 3 Recommendations</h5>
+                        <div class="row g-3">
+                            {% for crop, conf in top_3 %}
+                            <div class="col-md-4">
+                                <div class="info-item {% if loop.first %}border border-success border-2{% endif %}">
+                                    <div class="label">#{{ loop.index }}</div>
+                                    <div class="value" style="color: {% if loop.first %}#2E7D32{% else %}#666{% endif %};">{{ crop | capitalize }}</div>
+                                    <small class="text-muted">{{ "%.1f"|format(conf) }}% confidence</small>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Crop Info -->
+                    {% if crop_info %}
+                    <div class="mb-4">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-info-circle me-2" style="color: #0288D1;"></i>About {{ prediction | capitalize }}</h5>
+                        <p>{{ crop_info.description }}</p>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="label">Season</div>
+                                <div class="value">{{ crop_info.season }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Water Need</div>
+                                <div class="value">{{ crop_info.water_need }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Soil Type</div>
+                                <div class="value">{{ crop_info.soil_type }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Temperature</div>
+                                <div class="value">{{ crop_info.temperature_range }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Growing Period</div>
+                                <div class="value">{{ crop_info.growing_period }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Ideal Conditions Comparison -->
+                    {% if ideal_conditions %}
+                    <div>
+                        <h5 class="fw-bold mb-3"><i class="fas fa-balance-scale me-2" style="color: #2E7D32;"></i>Your Input vs Ideal Conditions</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Your Input</th>
+                                        <th>Ideal for {{ prediction | capitalize }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nitrogen (N)</strong></td>
+                                        <td>{{ user_input.N }}</td>
+                                        <td>{{ ideal_conditions.N }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Phosphorous (P)</strong></td>
+                                        <td>{{ user_input.P }}</td>
+                                        <td>{{ ideal_conditions.P }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Potassium (K)</strong></td>
+                                        <td>{{ user_input.K }}</td>
+                                        <td>{{ ideal_conditions.K }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Temperature</strong></td>
+                                        <td>{{ user_input.temperature }} °C</td>
+                                        <td>{{ ideal_conditions.temperature }} °C</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Humidity</strong></td>
+                                        <td>{{ user_input.humidity }}%</td>
+                                        <td>{{ ideal_conditions.humidity }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>pH Level</strong></td>
+                                        <td>{{ user_input.ph }}</td>
+                                        <td>{{ ideal_conditions.ph }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Rainfall</strong></td>
+                                        <td>{{ user_input.rainfall }} mm</td>
+                                        <td>{{ ideal_conditions.rainfall }} mm</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="text-center mt-4">
+                        <a href="/recommend" class="btn btn-custom btn-primary-custom">
+                            <i class="fas fa-redo me-2"></i>New Prediction
+                        </a>
+                    </div>
+                    
+                    <!-- SCENARIO 2: Suitability Result -->
+                    {% elif scenario == 'suitability' %}
+                    <div class="text-center mb-4">
+                        <span class="result-badge" style="background: {{ suitability_color }};">
+                            <i class="fas fa-{% if overall_score >= 70 %}check-circle{% else %}exclamation-circle{% endif %} me-2"></i>{{ suitability }}
+                        </span>
+                        <div class="crop-name-display" style="color: {{ suitability_color }};">
+                            <i class="fas fa-leaf me-2"></i>{{ crop_name | capitalize }}
+                        </div>
+                        <p class="text-muted">Suitability Assessment Results</p>
+                    </div>
+                    
+                    <!-- Overall Score -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between">
+                            <strong>Suitability Score</strong>
+                            <strong style="color: {{ suitability_color }};">{{ overall_score }}%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: {{ overall_score }}%; background: {{ suitability_color }};"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Analysis -->
+                    <div class="mb-4">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2"></i>Parameter-wise Analysis</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Your Value</th>
+                                        <th>Ideal Value</th>
+                                        <th>Deviation</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for param, data in deviations.items() %}
+                                    <tr>
+                                        <td><strong>{{ param | capitalize }}</strong></td>
+                                        <td>{{ data.user }}</td>
+                                        <td>{{ data.ideal }}</td>
+                                        <td>
+                                            {% if data.deviation <= 10 %}
+                                            <span class="badge bg-success">{{ data.deviation }}%</span>
+                                            {% elif data.deviation <= 25 %}
+                                            <span class="badge bg-warning">{{ data.deviation }}%</span>
+                                            {% else %}
+                                            <span class="badge bg-danger">{{ data.deviation }}%</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ data.score }}%</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Model Comparison -->
+                    {% if recommended_crop %}
+                    <div class="alert {% if match %}alert-success{% else %}alert-warning{% endif %}">
+                        <i class="fas fa-{% if match %}check-circle{% else %}info-circle{% endif %} me-2"></i>
+                        {% if match %}
+                        <strong>Match found!</strong> The AI model also recommends <strong>{{ crop_name | capitalize }}</strong> for these conditions.
+                        {% else %}
+                        <strong>Note:</strong> For these exact conditions, the AI model would recommend <strong>{{ recommended_crop | capitalize }}</strong> instead of {{ crop_name | capitalize }}.
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Crop Info -->
+                    {% if crop_info %}
+                    <div class="mb-4">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-info-circle me-2" style="color: #0288D1;"></i>About {{ crop_name | capitalize }}</h5>
+                        <p>{{ crop_info.description }}</p>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="label">Season</div>
+                                <div class="value">{{ crop_info.season }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Water Need</div>
+                                <div class="value">{{ crop_info.water_need }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Soil Type</div>
+                                <div class="value">{{ crop_info.soil_type }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">Temperature</div>
+                                <div class="value">{{ crop_info.temperature_range }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="text-center mt-4">
+                        <a href="/suitability" class="btn btn-custom btn-primary-custom">
+                            <i class="fas fa-redo me-2"></i>New Assessment
+                        </a>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

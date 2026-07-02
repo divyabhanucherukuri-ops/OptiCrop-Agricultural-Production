@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% block title %}OptiCrop - Smart Agricultural Production Optimization Engine{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="hero-title fade-in">
+                    Optimize Your <span>Agricultural Production</span> with AI
+                </h1>
+                <p class="hero-subtitle fade-in">
+                    OptiCrop leverages machine learning and environmental data to provide 
+                    intelligent crop recommendations. Maximize yields, optimize resources, 
+                    and promote sustainable farming practices — all through data-driven insights.
+                </p>
+                <div class="d-flex gap-3 flex-wrap fade-in">
+                    <a href="/recommend" class="btn btn-custom btn-outline-custom">
+                        <i class="fas fa-seedling me-2"></i>Get Recommendation
+                    </a>
+                    <a href="/suitability" class="btn btn-custom btn-outline-custom">
+                        <i class="fas fa-check-circle me-2"></i>Check Suitability
+                    </a>
+                    <a href="/research" class="btn btn-custom btn-outline-custom">
+                        <i class="fas fa-chart-bar me-2"></i>Research Data
+                    </a>
+                </div>
+                <div class="hero-stats fade-in">
+                    <div class="hero-stat">
+                        <span class="number">22</span>
+                        <span class="label">Crops Supported</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="number">2,200</span>
+                        <span class="label">Data Samples</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="number">99%</span>
+                        <span class="label">Model Accuracy</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center fade-in">
+                <i class="fas fa-leaf" style="font-size: 15rem; color: rgba(255,255,255,0.12);"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: #1a1a2e;">How OptiCrop Helps You</h2>
+            <p class="text-muted" style="max-width: 600px; margin: 0 auto;">
+                Three powerful tools designed for farmers, researchers, and policymakers
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Scenario 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center slide-up">
+                    <div class="feature-icon green mx-auto">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Smart Crop Recommendation</h3>
+                    <p>
+                        Enter your soil and environmental parameters — Nitrogen, Phosphorous, 
+                        Potassium, temperature, humidity, pH, and rainfall. Our AI analyzes 
+                        the data and recommends the most suitable crop for maximum yield.
+                    </p>
+                    <a href="/recommend" class="btn btn-custom btn-primary-custom mt-3">
+                        <i class="fas fa-arrow-right me-2"></i>Get Started
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Scenario 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center slide-up">
+                    <div class="feature-icon blue mx-auto">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3>Crop Suitability Assessment</h3>
+                    <p>
+                        Already have a crop in mind? Check whether your current soil and 
+                        climate conditions are suitable. Get detailed compatibility insights, 
+                        deviation analysis, and productivity potential scores.
+                    </p>
+                    <a href="/suitability" class="btn btn-custom btn-primary-custom mt-3">
+                        <i class="fas fa-arrow-right me-2"></i>Check Suitability
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Scenario 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card text-center slide-up">
+                    <div class="feature-icon orange mx-auto">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Research & Policy Analytics</h3>
+                    <p>
+                        Explore crop-environment relationships, identify agricultural 
+                        production patterns, and access data-driven insights for 
+                        sustainable farming strategies and resource optimization.
+                    </p>
+                    <a href="/research" class="btn btn-custom btn-primary-custom mt-3">
+                        <i class="fas fa-arrow-right me-2"></i>Explore Data
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: #1a1a2e;">How It Works</h2>
+            <p class="text-muted">Simple, fast, and data-driven crop optimization</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-3 text-center">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-database text-white" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="fw-bold">1. Input Data</h5>
+                <p class="text-muted small">Enter soil nutrients (N, P, K), temperature, humidity, pH, and rainfall</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-brain text-white" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="fw-bold">2. AI Analysis</h5>
+                <p class="text-muted small">Random Forest model analyzes 7 parameters against 2,200+ data samples</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-list-ol text-white" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="fw-bold">3. Get Results</h5>
+                <p class="text-muted small">Receive top crop recommendations with confidence scores and ideal conditions</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-leaf text-white" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="fw-bold">4. Optimize</h5>
+                <p class="text-muted small">Implement recommendations for higher yields and resource efficiency</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Crops Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: #1a1a2e;">Supported Crops</h2>
+            <p class="text-muted">OptiCrop supports recommendations for 22 different crop types</p>
+        </div>
+        
+        <div class="row g-3">
+            {% set crops = ['Rice', 'Maize', 'Chickpea', 'Kidney Beans', 'Pigeon Peas', 'Moth Beans', 'Mung Bean', 'Black Gram', 'Lentil', 'Pomegranate', 'Banana', 'Mango', 'Grapes', 'Watermelon', 'Muskmelon', 'Apple', 'Orange', 'Papaya', 'Coconut', 'Cotton', 'Jute', 'Coffee'] %}
+            {% for crop in crops %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="text-center p-3" style="background: #f8faf8; border-radius: 12px; border: 1px solid #e8f5e9; transition: all 0.3s ease;" onmouseover="this.style.background='#e8f5e9'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='#f8faf8'; this.style.transform='translateY(0)'">
+                    <i class="fas fa-seedling" style="color: #4CAF50; font-size: 1.5rem;"></i>
+                    <p class="mb-0 mt-1 small fw-bold">{{ crop }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Model Info -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-bold" style="color: #1a1a2e;">Powered by <span style="color: #2E7D32;">Machine Learning</span></h2>
+                <p class="text-muted mt-3">
+                    OptiCrop uses a tuned <strong>Random Forest Classifier</strong> achieving <strong>99% accuracy</strong> 
+                    on the crop recommendation dataset. The model analyzes 7 key parameters and compares them against 
+                    2,200+ data samples spanning 22 different crop types.
+                </p>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> 5 algorithms compared (KNN, Logistic Regression, Decision Tree, Random Forest, Gradient Boosting)</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Hyperparameter tuning via GridSearchCV for optimal performance</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Feature scaling with StandardScaler for accurate predictions</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Cross-validation to ensure model generalizability</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-4" style="background: #f1f8e9; border-radius: 20px; border: 1px solid #c8e6c9;">
+                    <h5 class="fw-bold" style="color: #2E7D32;"><i class="fas fa-chart-line me-2"></i>Model Performance</h5>
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Random Forest (Tuned)</span>
+                            <strong style="color: #2E7D32;">99%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: 99%;"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 mt-3">
+                            <span>Gradient Boosting</span>
+                            <strong style="color: #2E7D32;">98.9%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: 98.9%;"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 mt-3">
+                            <span>Decision Tree</span>
+                            <strong style="color: #2E7D32;">98%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: 98%;"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 mt-3">
+                            <span>K-Nearest Neighbors</span>
+                            <strong style="color: #2E7D32;">97.9%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: 97.9%;"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 mt-3">
+                            <span>Logistic Regression</span>
+                            <strong style="color: #2E7D32;">97.3%</strong>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="fill" style="width: 97.3%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Team Section -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: #1a1a2e;">Project Done By</h2>
+            <p class="text-muted">Meet the team behind OptiCrop</p>
+        </div>
+        
+        <!-- Team Lead -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="text-center p-4" style="background: linear-gradient(135deg, #1B5E20, #2E7D32); border-radius: 20px; color: white; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                        <i class="fas fa-crown" style="font-size: 2rem; color: #FFD700;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-1">Cherukuri Divya Bhanu</h5>
+                    <p class="mb-1" style="color: #FFD54F; font-size: 0.9rem;"><i class="fas fa-star me-1"></i>Team Lead</p>
+                    <a href="mailto:divyabhanucherukuri@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.85rem;">
+                        <i class="fas fa-envelope me-1"></i>divyabhanucherukuri@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Members -->
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center p-3" style="background: #f8faf8; border-radius: 15px; border: 1px solid #e8f5e9; height: 100%;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: #E8F5E9; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                        <i class="fas fa-user" style="font-size: 1.5rem; color: #2E7D32;"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Polavarapu Gurumurthy</h6>
+                    <p class="text-muted mb-1" style="font-size: 0.8rem;">Member</p>
+                    <a href="mailto:gurumurthypolavarapu@gmail.com" style="color: #2E7D32; text-decoration: none; font-size: 0.8rem;">
+                        <i class="fas fa-envelope me-1"></i>gurumurthypolavarapu@gmail.com
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center p-3" style="background: #f8faf8; border-radius: 15px; border: 1px solid #e8f5e9; height: 100%;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: #E8F5E9; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                        <i class="fas fa-user" style="font-size: 1.5rem; color: #2E7D32;"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Meda Harika</h6>
+                    <p class="text-muted mb-1" style="font-size: 0.8rem;">Member</p>
+                    <a href="mailto:medahari036@gmail.com" style="color: #2E7D32; text-decoration: none; font-size: 0.8rem;">
+                        <i class="fas fa-envelope me-1"></i>medahari036@gmail.com
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center p-3" style="background: #f8faf8; border-radius: 15px; border: 1px solid #e8f5e9; height: 100%;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: #E8F5E9; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                        <i class="fas fa-user" style="font-size: 1.5rem; color: #2E7D32;"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Neelam Venkata Satya Sri</h6>
+                    <p class="text-muted mb-1" style="font-size: 0.8rem;">Member</p>
+                    <a href="mailto:satyaneelam2006@gmail.com" style="color: #2E7D32; text-decoration: none; font-size: 0.8rem;">
+                        <i class="fas fa-envelope me-1"></i>satyaneelam2006@gmail.com
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center p-3" style="background: #f8faf8; border-radius: 15px; border: 1px solid #e8f5e9; height: 100%;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: #E8F5E9; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                        <i class="fas fa-user" style="font-size: 1.5rem; color: #2E7D32;"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Yakkala Naga Venkata Bhanu Tejaswini</h6>
+                    <p class="text-muted mb-1" style="font-size: 0.8rem;">Member</p>
+                    <a href="mailto:tejayakkalla@gmail.com" style="color: #2E7D32; text-decoration: none; font-size: 0.8rem;">
+                        <i class="fas fa-envelope me-1"></i>tejayakkalla@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
